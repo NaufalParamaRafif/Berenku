@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Buku extends Model
 {
     use HasFactory;
+
+    public function penulis(){
+        return $this->belongsToMany(Penulis::class, 'penulis_buku');
+    }
 }

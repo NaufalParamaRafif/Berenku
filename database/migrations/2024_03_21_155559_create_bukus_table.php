@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug');
             $table->string('title');
-            $table->string('deskripsi_singkat');
+            $table->longText('deskripsi_singkat');
             $table->enum('category', ['Fiksi', 'Non Fiksi']);
             $table->boolean('ketersediaan');
             $table->string('isbn');
