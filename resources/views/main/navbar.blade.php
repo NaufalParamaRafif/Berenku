@@ -10,11 +10,18 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
+          @auth
+          <li class="nav-item">
+            <a class="nav-link" href="/ditandai/{{ auth()->user()->username }}">Ditandai</a>
+          </li>
+          @endauth
+          @guest
           <li class="nav-item">
             <a class="nav-link" href="/ditandai">Ditandai</a>
           </li>
+          @endguest
           <li class="nav-item">
             <a class="nav-link" href="/daftar_peminjaman">Daftar Peminjaman</a>
           </li>

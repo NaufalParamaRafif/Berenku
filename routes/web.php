@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\DitandaiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
+use Illuminate\Foundation\Console\DocsCommand;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,10 +22,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'show']);
 Route::get('/home', [HomeController::class, 'show']);
 
-Route::get('/ditandai', function () {
-    return view('ditandai.ditandai');
-});
-
 Route::get('/daftar_peminjaman', function () {
     return view('daftar_peminjaman.daftar_peminjaman');
 });
@@ -35,9 +33,12 @@ Route::group(['middleware' => ['guest']], function() {
 
     Route::get('/login', [LoginController::class, 'show']);
     Route::post('/login', [LoginController::class, 'login']);
-});
 
+});
 // Route for authenticated user
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/logout', [LogoutController::class, 'perform']);
+    Route::get('/ditandai/{user:username}', [DitandaiController::class, 'show']);
+    Route::get('/tandai/{buku:slug}', [DitandaiController::class, 'tandai']);
+    Route::get('/hapus_penanda/{buku:slug}', [DitandaiController::class, 'hapus_penanda']);
 });
