@@ -48,4 +48,7 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+    public function buku_ditandai(){
+        return $this->belongsToMany(Buku::class, 'user_buku_ditandai');
+    }
 }
