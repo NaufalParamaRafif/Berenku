@@ -51,4 +51,7 @@ class User extends Authenticatable
     public function buku_ditandai(){
         return $this->belongsToMany(Buku::class, 'user_buku_ditandai');
     }
+    public function buku_dipinjam(){
+        return $this->hasMany(Buku::class, 'user_id');
+    }
 }

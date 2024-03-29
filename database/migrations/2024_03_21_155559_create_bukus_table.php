@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('bukus', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('slug');
             $table->string('title');
             $table->longText('deskripsi_singkat');
             $table->enum('category', ['Fiksi', 'Non Fiksi']);
-            $table->boolean('ketersediaan');
+            $table->boolean('is_tersedia');
             $table->string('isbn');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
