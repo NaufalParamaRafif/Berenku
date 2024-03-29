@@ -14,7 +14,7 @@
           </li>
           @auth
           <li class="nav-item">
-            <a class="nav-link" href="/ditandai/{{ auth()->user()->username }}">Ditandai</a>
+            <a class="nav-link" href="/ditandai">Ditandai</a>
           </li>
           @endauth
           @guest

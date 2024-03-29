@@ -4,6 +4,7 @@ use App\Http\Controllers\DitandaiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\PinjamController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Foundation\Console\DocsCommand;
 use Illuminate\Support\Facades\Route;
@@ -38,7 +39,13 @@ Route::group(['middleware' => ['guest']], function() {
 // Route for authenticated user
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/logout', [LogoutController::class, 'perform']);
-    Route::get('/ditandai/{user:username}', [DitandaiController::class, 'show']);
+    Route::get('/ditandai', [DitandaiController::class, 'show']);
+    Route::get('/daftar_peminjaman', [PinjamController::class, 'show']);
+    
     Route::get('/tandai/{buku:slug}', [DitandaiController::class, 'tandai']);
     Route::get('/hapus_penanda/{buku:slug}', [DitandaiController::class, 'hapus_penanda']);
+    
+    
+    Route::get('/pinjam/{buku:slug}', [PinjamController::class, 'pinjam']);
+    Route::get('/kembalikan/{buku:slug}', [PinjamController::class, 'kembalikan']);
 });
