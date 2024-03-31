@@ -12,4 +12,12 @@ class HomeController extends Controller
             'bukus' => Buku::all(),
         ]);
     }
+
+    public function search(Request $request){
+        $searchKeyword = $request->input('search');
+        $result = Buku::where('title', 'like', "%{$searchKeyword}%")->get();
+        return view('home.home', [
+            'bukus' => $result,
+        ]);
+    }
 }

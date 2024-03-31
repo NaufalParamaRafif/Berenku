@@ -26,6 +26,7 @@ Route::get('/home', [HomeController::class, 'show']);
 Route::get('/daftar_peminjaman', function () {
     return view('daftar_peminjaman.daftar_peminjaman');
 });
+Route::get('/cari', [HomeController::class, 'search']);
 
 // Route for guest
 Route::group(['middleware' => ['guest']], function() {
