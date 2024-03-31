@@ -18,7 +18,7 @@ class LoginController extends Controller
         $credentials = $request->getCredentials();
 
         if (!Auth::validate($credentials)):
-            return redirect()->to('login')->withErrors(trans('auth.failed'));
+            return redirect('/login')->with('failed', 'Login gagal, coba periksa username atau email dan password anda');
         endif;
 
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
