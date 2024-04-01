@@ -26,5 +26,14 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'Osama bin Laden',
+            'username' => 'osamabinladen',
+            'email' => 'osamabinladen@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('osamabinladen'),
+            'remember_token' => Str::random(10),
+        ]);
     }
 }

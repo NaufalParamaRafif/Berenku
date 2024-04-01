@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('category', ['Fiksi', 'Non Fiksi']);
             $table->boolean('is_tersedia');
             $table->string('isbn');
+            $table->timestamp('deadline')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

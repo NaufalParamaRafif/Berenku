@@ -13,6 +13,7 @@ class Buku extends Model
     protected $fillable = [
         'user_id',
         'is_tersedia',
+        'deadline'
     ];
 
     public function penulis(){
@@ -39,5 +40,20 @@ class Buku extends Model
         return DB::table('bukus')->where('id', '=', $this->id)
             ->where('user_id', '=', $currentUser->id)
             ->exists();
+    }
+
+    public function is_deadline(){
+        return now()->greaterThan($this->deadline);
+    }
+
+    public function check_is_deadline() : void
+    {
+        if($this->is_deadline()){
+            $this->user_id = null;
+            $this->is_tersedia = 1;
+            $this->deadline = null;
+
+            $this->save();
+        }
     }
 }
