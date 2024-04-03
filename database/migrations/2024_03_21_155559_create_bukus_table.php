@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('deskripsi_singkat');
             $table->enum('category', ['Fiksi', 'Non Fiksi']);
             $table->boolean('is_tersedia');
+            $table->string('image');
             $table->string('isbn');
             $table->timestamp('deadline')->nullable();
             $table->timestamps();

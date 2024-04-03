@@ -10,11 +10,7 @@ class Buku extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'is_tersedia',
-        'deadline'
-    ];
+    protected $guarded = ['id'];
 
     public function penulis(){
         return $this->belongsToMany(Penulis::class, 'penulis_buku');
