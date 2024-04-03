@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DitandaiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\PinjamController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Foundation\Console\DocsCommand;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'show']);
-Route::get('/home', [HomeController::class, 'show']);
+Route::get('/', [HomeController::class, 'show'])->name('home');
+Route::get('/home', [HomeController::class, 'show'])->name('home');
 
 Route::get('/daftar_peminjaman', function () {
     return view('daftar_peminjaman.daftar_peminjaman');
@@ -49,4 +51,9 @@ Route::group(['middleware' => 'auth'], function() {
     
     Route::get('/pinjam/{buku:slug}', [PinjamController::class, 'pinjam']);
     Route::get('/kembalikan/{buku:slug}', [PinjamController::class, 'kembalikan']);
+});
+
+// Route for admin
+Route::group(['middleware' => 'admin'], function () {
+    Route::resource('/dashboard', DashboardController::class);
 });
