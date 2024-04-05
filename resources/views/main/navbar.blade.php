@@ -10,11 +10,11 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <a class="nav-link {{ (Route::is('home')) ? 'active' : '' }}" aria-current="page" href="/">Home</a>
           </li>
           @auth
           <li class="nav-item">
-            <a class="nav-link" href="/ditandai">Ditandai</a>
+            <a class="nav-link {{ (request()->is('ditandai')) ? 'active' : '' }}" href="/ditandai">Ditandai</a>
           </li>
           @endauth
           @guest
@@ -23,11 +23,18 @@
           </li>
           @endguest
           <li class="nav-item">
-            <a class="nav-link" href="/daftar_peminjaman">Daftar Peminjaman</a>
+            <a class="nav-link {{ (request()->is('daftar_peminjaman')) ? 'active' : '' }}" href="/daftar_peminjaman">Daftar Peminjaman</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/komunitas">Komunitas</a>
           </li>
+          @auth
+            @if (auth()->user()->role === 'admin')
+              <li class="nav-item">
+                <a class="nav-link" href="/dashboard">Dashboard Admin</a>
+              </li>
+            @endif
+          @endauth
         </ul>
         <form class="d-flex" role="search" method="GET" action="/cari">
           @csrf

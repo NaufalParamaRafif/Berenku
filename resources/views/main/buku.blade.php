@@ -1,7 +1,7 @@
 @foreach ($bukus as $buku)
     <div class="col">
         <div class="card">
-        <img src="https://images-na.ssl-images-amazon.com/images/I/91Z6ApocmwL._AC_UL232_SR232,232_.jpg" class="card-img-top" alt="...">
+        <img src="{{ asset("storage/images/$buku->image") }}" class="card-img-top" style="height: 335px; object-fit: contain" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{ $buku->title }}</h5>
             <p class="card-text">{{ $buku->deskripsi_singkat }}</p>

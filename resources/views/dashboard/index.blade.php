@@ -39,9 +39,9 @@
                             <td>
                                 <a href="{{ route('dashboard.show', $buku->slug) }}" class="btn btn-dark">Show</a>
                                 <a href="{{ route('dashboard.edit', $buku->slug) }}" class="btn btn-primary">Edit</a>
-                                @csrf
-                                @method('DELETE')
                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('dashboard.destroy', $buku->slug) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Hapus</button>
                                 </form>
                             </td>

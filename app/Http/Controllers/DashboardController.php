@@ -7,6 +7,7 @@ use App\Models\Penulis;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -15,7 +16,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.main', [
+        return view('dashboard.index', [
             'bukus' => Buku::latest()->paginate(5),
         ]);
     }
@@ -70,32 +71,93 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        //
+        $buku = Buku::where('slug', $slug)->firstOrFail();
+
+        return view('dashboard.show', [
+            'buku' => $buku,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $slug)
     {
-        //
+        $buku = Buku::where('slug', $slug)->firstOrFail();
+
+        return view('dashboard.edit', [
+            'buku' => $buku,
+            'penuliss' => Penulis::all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $slug)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|min:5',
+            'deskripsi_singkat' => 'required|min:25',
+            'category' => 'required',
+            'penulis' => 'required',
+            'image' => 'image|mimes:jpeg,jpg,png|max:4096',
+            'isbn' => 'required|min:10|max:10'
+        ]);
+
+        $buku = Buku::where('slug', $slug)->firstOrFail();
+
+        if ($request->hasFile('image')){
+            $image = $request->file('image');
+            $image->storeAs('public/images', $image->hashName());
+
+            Storage::delete('public/images/'.$buku->image);
+
+            // update buku
+            $buku->update([
+                'slug' => Str::slug($request->title),
+                'title' => $request->title,
+                'deskripsi_singkat' => $request->deskripsi_singkat,
+                'category' => $request->category,
+                'image' => $image->hashName(),
+                'isbn' => $request->isbn,
+            ]);
+
+            // update penulis
+            DB::table('penulis_buku')->where('buku_id', $buku->id)
+                ->limit(1)
+                ->update(['penulis_id' => $request->penulis]);
+        } else {
+            $buku->update([
+                'slug' => Str::slug($request->title),
+                'title' => $request->title,
+                'deskripsi_singkat' => $request->deskripsi_singkat,
+                'category' => $request->category,
+                'isbn' => $request->isbn,
+            ]);
+
+            // update penulis
+            DB::table('penulis_buku')->where('buku_id', $buku->id)
+                ->limit(1)
+                ->update(['penulis_id' => $request->penulis]);
+        }
+
+        return redirect()->route('dashboard.index')->with('success', 'Data Berhasil Dibuah!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $slug)
     {
-        //
+        $buku = Buku::where('slug', $slug)->firstOrFail();
+
+        Storage::delete('public/images/'.$buku->image);
+
+        $buku->delete();
+
+        return redirect()->route('dashboard.index')->with('success', 'Data Berhasil Dihapus!');
     }
 }
