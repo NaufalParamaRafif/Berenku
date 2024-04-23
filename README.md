@@ -1,5 +1,5 @@
 ## Cara Menggunakan
-1. Download repository ini dalam bentuk zip, lalu extraxt, atau jalankan perintah ``git clone https://github.com/NaufalParamaRafif/Berenku.git`` di dalam folder yang diinginkan.
+1. Download repository ini dalam bentuk zip, lalu extract, atau jalankan perintah ``git clone https://github.com/NaufalParamaRafif/Berenku.git`` di dalam folder yang diinginkan.
 2. Buka projectnya.
 3. Di dalam project jalankan perintah ``composer install`` untuk menghasilkan file vendor.
 4. Copy code yang ada di file **.env.example** dan buat file **.env** lalu paste codenya, ubah **DB_DATABASE** sesuai nama database yang diinginkan.
@@ -8,7 +8,7 @@
 7. Migrate dan seed database dengan menjalankan perintah ``php artisan migrate:fresh --seed``.
 8. Jalankan project dengan cara ``php artisan serve``.
 9. Register jika tidak memiliki akun.
-10. Jika ingin mengakses dashboard Admin, ubah role user yang ada di database menjadi admin.
+10. Jika ingin mengakses dashboard Admin, masuk ke MySQL lalu ubah role user yang anda daftarkan menjadi admin.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
